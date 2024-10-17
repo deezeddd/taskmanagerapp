@@ -1,11 +1,10 @@
 ## Task
 
-    [ ] Front-end
-    [ ] State Management
-    [ ] Features Required
+    [X] Front-end
+    [X] State Management
+    [X] Features Required
         [X] Form
-        [ ] Context API
-        [ ] Debouncing
-        [ ] Data Storing
-    [ ] Bonus Feature
-    [ ] Media Query - Phone
+        [X] Context API
+        [X] Debouncing
+        [X] Data Storing
+    [X] Media Query - Phone
