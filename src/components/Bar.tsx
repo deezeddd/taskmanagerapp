@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ITask } from "./Home";
 
 export default function Bar({
@@ -8,13 +8,32 @@ export default function Bar({
   task: ITask[];
   setDisplayTasks: React.Dispatch<React.SetStateAction<ITask[]>>;
 }) {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [status, setStatus] = useState<Boolean | null>(null);
+
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>(searchTerm); // Debounced value
+    
+
+    useEffect(() => {
+      const handler = setTimeout(() => {
+        setDebouncedSearchTerm(searchTerm); 
+      }, 400); 
+
+      // if user types again within the delay period
+      return () => {
+        clearTimeout(handler);
+      };
+    }, [searchTerm]);
+
+    useEffect(() => {
+      handleFilterTask(debouncedSearchTerm, status);
+    }, [debouncedSearchTerm, status]);
+
+
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const search = e.target.value.toLowerCase();
     setSearchTerm(search);
-    handleFilterTask(search, status);
   };
 
   const handleStatus = (value: Boolean | null) => {
